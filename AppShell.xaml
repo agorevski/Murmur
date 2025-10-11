@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Murmur.App.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Murmur.App.Views"
+    FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="True">
+
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate views:HomePage}"
+            Icon="home.png"
+            Route="home" />
+
+        <ShellContent
+            Title="Mixer"
+            ContentTemplate="{DataTemplate views:MixerPage}"
+            Icon="mixer.png"
+            Route="mixer" />
+
+        <ShellContent
+            Title="Favorites"
+            ContentTemplate="{DataTemplate views:FavoritesPage}"
+            Icon="favorites.png"
+            Route="favorites" />
+
+        <ShellContent
+            Title="Premium"
+            ContentTemplate="{DataTemplate views:PremiumPage}"
+            Icon="premium.png"
+            Route="premium" />
+
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate views:SettingsPage}"
+            Icon="settings.png"
+            Route="settings" />
+    </TabBar>
+
+</Shell>
+

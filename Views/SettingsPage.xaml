@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Murmur.App.ViewModels"
+             x:Class="Murmur.App.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Title="{Binding Title}">
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="20">
+            <Label Text="Settings" 
+                   FontSize="28" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
+
+            <Frame BorderColor="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
+                   Padding="15"
+                   CornerRadius="10">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Audio Settings" FontSize="18" FontAttributes="Bold"/>
+                    
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Default Volume:" 
+                               VerticalOptions="Center"
+                               WidthRequest="120"/>
+                        <Slider Value="{Binding Preferences.DefaultVolume}"
+                                Minimum="0"
+                                Maximum="1"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding Preferences.DefaultVolume, StringFormat='{0:P0}'}" 
+                               VerticalOptions="Center"
+                               WidthRequest="50"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Default Timer:" 
+                               VerticalOptions="Center"
+                               WidthRequest="120"/>
+                        <Entry Text="{Binding Preferences.DefaultTimerMinutes}"
+                               Keyboard="Numeric"
+                               WidthRequest="80"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="minutes" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BorderColor="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
+                   Padding="15"
+                   CornerRadius="10">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Premium Status" FontSize="18" FontAttributes="Bold"/>
+                    
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Status:" 
+                               VerticalOptions="Center"
+                               WidthRequest="120"/>
+                        <Label Text="{Binding Preferences.IsPremium, Converter={StaticResource PremiumStatusConverter}}"
+                               FontAttributes="Bold"
+                               TextColor="{Binding Preferences.IsPremium, Converter={StaticResource PremiumColorConverter}}"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Ads:" 
+                               VerticalOptions="Center"
+                               WidthRequest="120"/>
+                        <Switch IsToggled="{Binding Preferences.AdsEnabled}"
+                                IsEnabled="{Binding Preferences.IsPremium, Converter={StaticResource InverseBoolConverter}}"/>
+                        <Label Text="{Binding Preferences.AdsEnabled, Converter={StaticResource AdsStatusConverter}}"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BorderColor="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
+                   Padding="15"
+                   CornerRadius="10">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="About" FontSize="18" FontAttributes="Bold"/>
+                    
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Version:" 
+                               VerticalOptions="Center"
+                               WidthRequest="120"/>
+                        <Label Text="{Binding AppVersion}" 
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <Button Text="Privacy Policy"
+                            Command="{Binding OpenPrivacyPolicyCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                            BorderColor="Gray"
+                            BorderWidth="1"/>
+
+                    <Button Text="Terms of Service"
+                            Command="{Binding OpenTermsOfServiceCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                            BorderColor="Gray"
+                            BorderWidth="1"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <VerticalStackLayout Spacing="10">
+                <Button Text="Save Settings"
+                        Command="{Binding SavePreferencesCommand}"
+                        BackgroundColor="MediumSeaGreen"
+                        TextColor="White"/>
+
+                <Button Text="Reset to Defaults"
+                        Command="{Binding ResetToDefaultsCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                        BorderColor="Gray"
+                        BorderWidth="1"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

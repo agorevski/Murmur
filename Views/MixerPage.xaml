@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Murmur.App.ViewModels"
+             xmlns:models="clr-namespace:Murmur.App.Models"
+             x:Class="Murmur.App.Views.MixerPage"
+             x:DataType="vm:MixerViewModel"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+        <Label Grid.Row="0" 
+               Text="Sound Mixer" 
+               FontSize="28" 
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,0,0,20"/>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="15">
+                <Label Text="Active Sounds" FontSize="20" FontAttributes="Bold"/>
+                
+                <Label Text="No sounds playing. Go to Home to start mixing!"
+                       IsVisible="{Binding ActiveSounds.Count, Converter={StaticResource IsZeroConverter}}"
+                       TextColor="Gray"
+                       HorizontalOptions="Center"
+                       Margin="0,40"/>
+
+                <CollectionView ItemsSource="{Binding ActiveSounds}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PlayingSound">
+                            <Frame BorderColor="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
+                                   Padding="15"
+                                   Margin="0,5"
+                                   CornerRadius="10">
+                                <VerticalStackLayout Spacing="10">
+                                    <HorizontalStackLayout>
+                                        <Label Text="{Binding Sound.Name}" 
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="StartAndExpand"/>
+                                        <Button Text="Remove"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MixerViewModel}}, Path=RemoveSoundCommand}"
+                                                CommandParameter="{Binding .}"
+                                                BackgroundColor="Crimson"
+                                                TextColor="White"/>
+                                    </HorizontalStackLayout>
+                                    
+                                    <Label Text="Volume" FontSize="14"/>
+                                    <Slider Value="{Binding Volume}"
+                                            Minimum="0"
+                                            Maximum="1"
+                                            ValueChanged="OnVolumeChanged"/>
+                                    <Label Text="{Binding Volume, StringFormat='{0:P0}'}" 
+                                           FontSize="12"
+                                           HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="10" Padding="0,20,0,0">
+            <Label Text="Save This Mix" FontSize="18" FontAttributes="Bold"/>
+            <Entry Placeholder="Mix name..."
+                   Text="{Binding MixName}"/>
+            <Button Text="Save Mix"
+                    Command="{Binding SaveMixCommand}"
+                    IsEnabled="{Binding CanSave}"
+                    BackgroundColor="MediumSeaGreen"
+                    TextColor="White"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

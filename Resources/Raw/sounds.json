@@ -1,0 +1,92 @@
+[
+  {
+    "Id": 1,
+    "Name": "Rain",
+    "Description": "Gentle rain sounds",
+    "FileName": "rain.mp3",
+    "Category": "Nature",
+    "IsPremium": false,
+    "IconUrl": "rain_icon.png"
+  },
+  {
+    "Id": 2,
+    "Name": "Ocean Waves",
+    "Description": "Calming ocean waves",
+    "FileName": "ocean.mp3",
+    "Category": "Nature",
+    "IsPremium": false,
+    "IconUrl": "ocean_icon.png"
+  },
+  {
+    "Id": 3,
+    "Name": "Forest",
+    "Description": "Forest ambience with birds and wind",
+    "FileName": "forest.mp3",
+    "Category": "Nature",
+    "IsPremium": false,
+    "IconUrl": "forest_icon.png"
+  },
+  {
+    "Id": 4,
+    "Name": "Thunderstorm",
+    "Description": "Distant thunder with rain",
+    "FileName": "thunder.mp3",
+    "Category": "Nature",
+    "IsPremium": true,
+    "IconUrl": "thunder_icon.png"
+  },
+  {
+    "Id": 5,
+    "Name": "Fireplace",
+    "Description": "Crackling fireplace",
+    "FileName": "fire.mp3",
+    "Category": "Indoor",
+    "IsPremium": true,
+    "IconUrl": "fire_icon.png"
+  },
+  {
+    "Id": 6,
+    "Name": "White Noise",
+    "Description": "Pure white noise for focus",
+    "FileName": "whitenoise.mp3",
+    "Category": "Noise",
+    "IsPremium": true,
+    "IconUrl": "whitenoise_icon.png"
+  },
+  {
+    "Id": 7,
+    "Name": "Birds",
+    "Description": "Morning birds chirping",
+    "FileName": "birds.mp3",
+    "Category": "Nature",
+    "IsPremium": true,
+    "IconUrl": "birds_icon.png"
+  },
+  {
+    "Id": 8,
+    "Name": "Wind",
+    "Description": "Gentle wind through trees",
+    "FileName": "wind.mp3",
+    "Category": "Nature",
+    "IsPremium": true,
+    "IconUrl": "wind_icon.png"
+  },
+  {
+    "Id": 9,
+    "Name": "Stream",
+    "Description": "Flowing stream water",
+    "FileName": "stream.mp3",
+    "Category": "Nature",
+    "IsPremium": true,
+    "IconUrl": "stream_icon.png"
+  },
+  {
+    "Id": 10,
+    "Name": "Night Crickets",
+    "Description": "Peaceful cricket sounds",
+    "FileName": "crickets.mp3",
+    "Category": "Nature",
+    "IsPremium": true,
+    "IconUrl": "crickets_icon.png"
+  }
+]

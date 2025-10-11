@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Murmur.App.ViewModels"
+             xmlns:models="clr-namespace:Murmur.App.Models"
+             x:Class="Murmur.App.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,20">
+            <Label Text="Driftly" 
+                   FontSize="32" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Label Text="Create your perfect sound mix" 
+                   FontSize="16" 
+                   HorizontalOptions="Center"
+                   TextColor="Gray"/>
+        </VerticalStackLayout>
+
+        <!-- Sound Grid -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="15">
+                <Label Text="Available Sounds" FontSize="20" FontAttributes="Bold"/>
+                
+                <CollectionView ItemsSource="{Binding AvailableSounds}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" 
+                                       Span="2" 
+                                       HorizontalItemSpacing="10" 
+                                       VerticalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Sound">
+                            <Frame BorderColor="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
+                                   Padding="15"
+                                   CornerRadius="10"
+                                   HasShadow="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ToggleSoundCommand}"
+                                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Name}" 
+                                           FontSize="16" 
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Category}" 
+                                           FontSize="12" 
+                                           TextColor="Gray"
+                                           HorizontalOptions="Center"/>
+                                    <Label Text="🔒 Premium" 
+                                           FontSize="10" 
+                                           TextColor="Orange"
+                                           IsVisible="{Binding IsPremium}"
+                                           HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label Text="Currently Playing" 
+                       FontSize="20" 
+                       FontAttributes="Bold"
+                       IsVisible="{Binding IsPlaying}"
+                       Margin="0,20,0,0"/>
+                
+                <CollectionView ItemsSource="{Binding PlayingSounds}"
+                               IsVisible="{Binding IsPlaying}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PlayingSound">
+                            <Frame BorderColor="{AppThemeBinding Light=#90EE90, Dark=#006400}"
+                                   Padding="10"
+                                   Margin="0,5"
+                                   CornerRadius="8">
+                                <HorizontalStackLayout Spacing="10">
+                                    <Label Text="{Binding Sound.Name}" 
+                                           FontSize="14"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="🔊" 
+                                           FontSize="16"
+                                           VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Control Panel -->
+        <VerticalStackLayout Grid.Row="2" Spacing="10" Padding="0,20,0,0">
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="Timer:" VerticalOptions="Center"/>
+                <Entry Text="{Binding TimerMinutes}" 
+                       Keyboard="Numeric"
+                       WidthRequest="60"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="min" VerticalOptions="Center"/>
+                <Button Text="{Binding TimerActive, Converter={StaticResource TimerButtonTextConverter}}"
+                        Command="{Binding TimerActive, Converter={StaticResource TimerCommandConverter}}"
+                        IsEnabled="{Binding IsPlaying}"/>
+            </HorizontalStackLayout>
+            
+            <Button Text="Stop All"
+                    Command="{Binding StopAllCommand}"
+                    IsEnabled="{Binding IsPlaying}"
+                    BackgroundColor="Crimson"
+                    TextColor="White"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

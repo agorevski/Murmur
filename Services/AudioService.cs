@@ -36,20 +36,26 @@ public class AudioService : IAudioService
                 return false; // Already playing
             }
 
-            var audioFile = await FileSystem.OpenAppPackageFileAsync($"Sounds/{sound.FileName}");
-            var player = _audioManager.CreatePlayer(audioFile);
-            
-            player.Volume = volume;
-            player.Loop = true;
-            
-            _players[sound.Id] = player;
-            player.Play();
-            
-            return true;
-        }
-        catch
-        {
-            return false;
+            try
+            {
+                var audioFile = await FileSystem.OpenAppPackageFileAsync($"Sounds/{sound.FileName}");
+                var player = _audioManager.CreatePlayer(audioFile);
+                
+                player.Volume = volume;
+                player.Loop = true;
+                
+                _players[sound.Id] = player;
+                player.Play();
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Audio file not found - log the error for debugging
+                System.Diagnostics.Debug.WriteLine($"Failed to load audio file: Sounds/{sound.FileName}");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                throw new FileNotFoundException($"Audio file 'Sounds/{sound.FileName}' not found. Please add audio files to the Resources/Raw/Sounds directory.", ex);
+            }
         }
         finally
         {

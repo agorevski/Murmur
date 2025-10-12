@@ -4,124 +4,335 @@
              xmlns:vm="clr-namespace:Murmur.App.ViewModels"
              x:Class="Murmur.App.Views.PremiumPage"
              x:DataType="vm:PremiumViewModel"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
 
-    <ScrollView Padding="20">
-        <VerticalStackLayout Spacing="20">
-            <Label Text="✨ Driftly Premium" 
-                   FontSize="32" 
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
-
-            <Frame BorderColor="Gold"
-                   Padding="20"
-                   CornerRadius="15"
-                   BackgroundColor="{AppThemeBinding Light=#FFF8DC, Dark=#4B4B3C}"
-                   IsVisible="{Binding IsPremium}">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="🎉 You're Premium!" 
-                           FontSize="24"
-                           FontAttributes="Bold"
+    <ScrollView>
+        <VerticalStackLayout Spacing="24" Padding="20">
+            <!-- Premium Header -->
+            <Grid RowDefinitions="Auto,Auto" 
+                  RowSpacing="16"
+                  Padding="20"
+                  Background="{StaticResource PrimaryGradient}">
+                <Grid.Shadow>
+                    <Shadow Brush="{StaticResource Primary}" 
+                            Opacity="0.3" 
+                            Radius="12" 
+                            Offset="0,4" />
+                </Grid.Shadow>
+                
+                <!-- Premium Icon & Title -->
+                <VerticalStackLayout Grid.Row="0" Spacing="12">
+                    <Label Text="✨" 
+                           FontSize="56"
                            HorizontalOptions="Center"/>
-                    <Label Text="Thank you for supporting Driftly!" 
+                    <Label Text="Murmur Premium" 
+                           FontSize="32" 
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource White}"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Unlock the full experience" 
                            FontSize="16"
-                           HorizontalOptions="Center"
-                           TextColor="Gray"/>
+                           TextColor="{StaticResource White}"
+                           Opacity="0.9"
+                           HorizontalOptions="Center"/>
                 </VerticalStackLayout>
-            </Frame>
+            </Grid>
 
-            <VerticalStackLayout Spacing="15" IsVisible="{Binding IsPremium, Converter={StaticResource InverseBoolConverter}}">
-                <Label Text="Unlock Premium Features" 
-                       FontSize="22" 
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center"/>
+            <!-- Already Premium Status -->
+            <Border Background="{StaticResource Success}"
+                    StrokeThickness="0"
+                    Padding="24"
+                    IsVisible="{Binding IsPremium}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Success}" 
+                            Opacity="0.3" 
+                            Radius="12" 
+                            Offset="0,4" />
+                </Border.Shadow>
+                
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="🎉" 
+                           FontSize="40"
+                           HorizontalOptions="Center"/>
+                    <Label Text="You're Premium!" 
+                           FontSize="26"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource White}"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Thank you for supporting Murmur!" 
+                           FontSize="16"
+                           TextColor="{StaticResource White}"
+                           HorizontalOptions="Center"
+                           Opacity="0.95"/>
+                </VerticalStackLayout>
+            </Border>
 
-                <Frame BorderColor="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
-                       Padding="20"
-                       CornerRadius="10">
+            <!-- Premium Features Section -->
+            <VerticalStackLayout Spacing="20" IsVisible="{Binding IsPremium, Converter={StaticResource InverseBoolConverter}}">
+                <!-- Section Header -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView WidthRequest="4" 
+                             HeightRequest="24"
+                             CornerRadius="2"
+                             Color="{StaticResource Accent}"
+                             VerticalOptions="Center"/>
+                    <Label Text="Premium Features" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <!-- Features Grid -->
+                <Border Background="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}"
+                        Stroke="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"
+                        StrokeThickness="1"
+                        Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Black}}" 
+                                Opacity="0.1" 
+                                Radius="12" 
+                                Offset="0,2" />
+                    </Border.Shadow>
+                    
                     <CollectionView ItemsSource="{Binding PremiumFeatures}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="x:String">
-                                <HorizontalStackLayout Spacing="10" Margin="0,5">
-                                    <Label Text="✓" 
-                                           FontSize="20" 
-                                           TextColor="Green"
-                                           VerticalOptions="Center"/>
-                                    <Label Text="{Binding .}" 
+                                <Grid ColumnDefinitions="Auto,*" 
+                                      ColumnSpacing="16" 
+                                      Padding="0,12">
+                                    <!-- Check Icon -->
+                                    <Border Grid.Column="0"
+                                            WidthRequest="32"
+                                            HeightRequest="32"
+                                            StrokeThickness="0"
+                                            BackgroundColor="{StaticResource Success}"
+                                            VerticalOptions="Center">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="16"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="✓" 
+                                               FontSize="18" 
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource White}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+                                    
+                                    <!-- Feature Text -->
+                                    <Label Grid.Column="1"
+                                           Text="{Binding .}" 
                                            FontSize="16"
-                                           VerticalOptions="Center"/>
-                                </HorizontalStackLayout>
+                                           TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
+                                           VerticalOptions="Center"
+                                           LineBreakMode="WordWrap"/>
+                                </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </Frame>
+                </Border>
 
-                <Frame BorderColor="Purple"
-                       Padding="20"
-                       CornerRadius="10"
-                       BackgroundColor="{AppThemeBinding Light=#E6E6FA, Dark=#4B0082}">
-                    <VerticalStackLayout Spacing="10">
+                <!-- Pricing Card -->
+                <Border Background="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}"
+                        Stroke="{StaticResource Accent}"
+                        StrokeThickness="2"
+                        Padding="24">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Accent}" 
+                                Opacity="0.25" 
+                                Radius="16" 
+                                Offset="0,6" />
+                    </Border.Shadow>
+                    
+                    <VerticalStackLayout Spacing="16">
+                        <!-- Best Value Badge -->
+                        <Border Background="{StaticResource Accent}"
+                                StrokeThickness="0"
+                                Padding="12,6"
+                                HorizontalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            <Label Text="🔥 BEST VALUE" 
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource White}"/>
+                        </Border>
+                        
+                        <!-- Plan Name -->
                         <Label Text="Monthly Subscription" 
-                               FontSize="20"
+                               FontSize="24"
                                FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
                                HorizontalOptions="Center"/>
-                        <Label Text="$4.99/month" 
-                               FontSize="28"
-                               FontAttributes="Bold"
-                               HorizontalOptions="Center"
-                               TextColor="Purple"/>
-                        <Label Text="Cancel anytime" 
+                        
+                        <!-- Price -->
+                        <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="$4.99" 
+                                   FontSize="40"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center"/>
+                            <Label Text="/ month" 
+                                   FontSize="18"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                                   VerticalOptions="End"
+                                   Margin="0,0,0,4"/>
+                        </HorizontalStackLayout>
+                        
+                        <!-- Cancel Info -->
+                        <Label Text="Cancel anytime • No commitment" 
                                FontSize="14"
-                               HorizontalOptions="Center"
-                               TextColor="Gray"/>
+                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                               HorizontalOptions="Center"/>
                     </VerticalStackLayout>
-                </Frame>
+                </Border>
 
-                <Button Text="Subscribe Now"
+                <!-- Subscribe Button -->
+                <Button Text="🚀 Subscribe Now"
                         Command="{Binding PurchasePremiumCommand}"
-                        BackgroundColor="Purple"
-                        TextColor="White"
+                        Background="{StaticResource PrimaryGradient}"
+                        TextColor="{StaticResource White}"
                         FontSize="18"
+                        FontAttributes="Bold"
                         HeightRequest="60"
-                        CornerRadius="10"/>
+                        CornerRadius="16">
+                    <Button.Shadow>
+                        <Shadow Brush="{StaticResource Primary}" 
+                                Opacity="0.4" 
+                                Radius="16" 
+                                Offset="0,6" />
+                    </Button.Shadow>
+                </Button>
 
+                <!-- Restore Purchases -->
                 <Button Text="Restore Purchases"
                         Command="{Binding RestorePurchasesCommand}"
                         BackgroundColor="Transparent"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                        BorderColor="Gray"
-                        BorderWidth="1"/>
+                        TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryLight}}"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryLight}}"
+                        BorderWidth="2"
+                        HeightRequest="50"
+                        CornerRadius="12"/>
+
+                <!-- Trust Indicators -->
+                <Border Background="{AppThemeBinding Light={StaticResource LightSurfaceVariant}, Dark={StaticResource DarkSurfaceVariant}}"
+                        StrokeThickness="0"
+                        Padding="16,12">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    
+                    <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
+                        <Label Text="🔒" FontSize="16"/>
+                        <Label Text="Secure payment via Google Play" 
+                               FontSize="13"
+                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Border>
             </VerticalStackLayout>
 
-            <VerticalStackLayout Spacing="5" Margin="0,20,0,0">
-                <Label Text="Premium FAQ" 
-                       FontSize="18" 
-                       FontAttributes="Bold"/>
+            <!-- FAQ Section -->
+            <VerticalStackLayout Spacing="16" Margin="0,12,0,0">
+                <!-- Section Header -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView WidthRequest="4" 
+                             HeightRequest="24"
+                             CornerRadius="2"
+                             Color="{StaticResource Info}"
+                             VerticalOptions="Center"/>
+                    <Label Text="Frequently Asked Questions" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
                 
-                <Label Text="Q: When will I be charged?" 
-                       FontSize="14"
-                       FontAttributes="Bold"
-                       Margin="0,10,0,0"/>
-                <Label Text="A: You'll be charged immediately upon subscription, then monthly on the same date." 
-                       FontSize="14"
-                       TextColor="Gray"/>
+                <!-- FAQ Items -->
+                <Border Background="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}"
+                        Stroke="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"
+                        StrokeThickness="1"
+                        Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    
+                    <VerticalStackLayout Spacing="20">
+                        <!-- FAQ 1 -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="💳 When will I be charged?" 
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"/>
+                            <Label Text="You'll be charged immediately upon subscription, then monthly on the same date. All payments are processed securely through Google Play." 
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                                   LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
 
-                <Label Text="Q: Can I cancel anytime?" 
-                       FontSize="14"
-                       FontAttributes="Bold"
-                       Margin="0,10,0,0"/>
-                <Label Text="A: Yes! Cancel anytime from your Google Play account. You'll keep premium until the end of your billing period." 
-                       FontSize="14"
-                       TextColor="Gray"/>
+                        <BoxView HeightRequest="1" 
+                                 Color="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"/>
 
-                <Label Text="Q: What happens to my mixes if I cancel?" 
-                       FontSize="14"
-                       FontAttributes="Bold"
-                       Margin="0,10,0,0"/>
-                <Label Text="A: All your saved mixes remain, but you'll be limited to 3 sounds per mix on the free plan." 
-                       FontSize="14"
-                       TextColor="Gray"/>
+                        <!-- FAQ 2 -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="🔄 Can I cancel anytime?" 
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"/>
+                            <Label Text="Yes! Cancel anytime from your Google Play account. You'll keep premium access until the end of your current billing period." 
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                                   LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+
+                        <BoxView HeightRequest="1" 
+                                 Color="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"/>
+
+                        <!-- FAQ 3 -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="📱 What happens to my mixes?" 
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"/>
+                            <Label Text="All your saved mixes remain permanently. If you cancel, you'll be limited to 3 sounds per mix on the free plan." 
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                                   LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+
+                        <BoxView HeightRequest="1" 
+                                 Color="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"/>
+
+                        <!-- FAQ 4 -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="🔐 Is my payment secure?" 
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"/>
+                            <Label Text="Absolutely. All payments are processed through Google Play's secure payment system. We never see or store your payment information." 
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                                   LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
             </VerticalStackLayout>
+
+            <!-- Bottom Spacing -->
+            <BoxView HeightRequest="20" Color="Transparent"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

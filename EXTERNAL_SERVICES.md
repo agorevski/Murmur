@@ -1,6 +1,6 @@
 # External Services Setup Guide
 
-This document explains how to configure external services for the Driftly app.
+This document explains how to configure external services for the Murmur app.
 
 ## Firebase Setup
 

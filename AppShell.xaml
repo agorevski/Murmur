@@ -5,39 +5,90 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:Murmur.App.Views"
     FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="True">
+    Shell.NavBarIsVisible="True"
+    Shell.TabBarBackgroundColor="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}"
+    Shell.TabBarForegroundColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
+    Shell.TabBarUnselectedColor="{AppThemeBinding Light={StaticResource LightTextTertiary}, Dark={StaticResource DarkTextTertiary}}"
+    Shell.TabBarTitleColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryLight}}">
+
+    <Shell.Resources>
+        <Style TargetType="TabBar">
+            <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}" />
+            <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}" />
+        </Style>
+    </Shell.Resources>
 
     <TabBar>
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate views:HomePage}"
             Icon="home.png"
-            Route="home" />
+            Route="home">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="OpenSansSemibold"
+                    Glyph="🏠"
+                    Size="24"
+                    Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"/>
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent
             Title="Mixer"
             ContentTemplate="{DataTemplate views:MixerPage}"
             Icon="mixer.png"
-            Route="mixer" />
+            Route="mixer">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="OpenSansSemibold"
+                    Glyph="🎚️"
+                    Size="24"
+                    Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"/>
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent
             Title="Favorites"
             ContentTemplate="{DataTemplate views:FavoritesPage}"
             Icon="favorites.png"
-            Route="favorites" />
+            Route="favorites">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="OpenSansSemibold"
+                    Glyph="⭐"
+                    Size="24"
+                    Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"/>
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent
             Title="Premium"
             ContentTemplate="{DataTemplate views:PremiumPage}"
             Icon="premium.png"
-            Route="premium" />
+            Route="premium">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="OpenSansSemibold"
+                    Glyph="✨"
+                    Size="24"
+                    Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"/>
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent
             Title="Settings"
             ContentTemplate="{DataTemplate views:SettingsPage}"
             Icon="settings.png"
-            Route="settings" />
+            Route="settings">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="OpenSansSemibold"
+                    Glyph="⚙️"
+                    Size="24"
+                    Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"/>
+            </ShellContent.Icon>
+        </ShellContent>
     </TabBar>
 
 </Shell>
-

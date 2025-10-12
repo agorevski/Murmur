@@ -93,3 +93,18 @@ public class AdsStatusConverter : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+public class TimerButtonTextConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is bool timerActive)
+            return timerActive ? "Stop Timer" : "Start Timer";
+        return "Start Timer";
+    }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}

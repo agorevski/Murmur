@@ -10,7 +10,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>Driftly</ApplicationTitle>
+<ApplicationTitle>Murmur</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.driftly.murmur</ApplicationId>
@@ -40,14 +40,21 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
-		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
-		<PackageReference Include="Plugin.Maui.Audio" Version="3.0.1" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	</ItemGroup>
+<ItemGroup>
+<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
+<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
+<PackageReference Include="Plugin.Maui.Audio" Version="3.0.1" />
+<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+</ItemGroup>
+
+<ItemGroup>
+<!-- Exclude test project files from the main build -->
+<Compile Remove="Murmur.App.Tests\**" />
+<EmbeddedResource Remove="Murmur.App.Tests\**" />
+<None Remove="Murmur.App.Tests\**" />
+</ItemGroup>
 
 </Project>

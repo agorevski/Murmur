@@ -64,7 +64,7 @@ public partial class PremiumViewModel : BaseViewModel
                 _adService.AdsEnabled = false;
                 IsPremium = true;
 
-                await Shell.Current.DisplayAlert("Success", "Welcome to Driftly Premium!", "OK");
+                await Shell.Current.DisplayAlert("Success", "Welcome to Murmur Premium!", "OK");
                 
                 AnalyticsService.TrackEvent("premium_purchased");
                 AnalyticsService.SetUserProperty("is_premium", "true");

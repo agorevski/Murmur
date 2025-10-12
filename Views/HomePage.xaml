@@ -5,112 +5,340 @@
              xmlns:models="clr-namespace:Murmur.App.Models"
              x:Class="Murmur.App.Views.HomePage"
              x:DataType="vm:HomeViewModel"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
 
-    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
-        <!-- Header -->
-        <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,20">
-            <Label Text="Driftly" 
-                   FontSize="32" 
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
-            <Label Text="Create your perfect sound mix" 
-                   FontSize="16" 
-                   HorizontalOptions="Center"
-                   TextColor="Gray"/>
-        </VerticalStackLayout>
-
-        <!-- Sound Grid -->
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="15">
-                <Label Text="Available Sounds" FontSize="20" FontAttributes="Bold"/>
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header with Gradient Background -->
+        <Grid Grid.Row="0" 
+              Background="{StaticResource PrimaryGradient}"
+              Padding="24,20,24,24">
+            <Grid.Shadow>
+                <Shadow Brush="{StaticResource Primary}" 
+                        Opacity="0.3" 
+                        Radius="8" 
+                        Offset="0,2" />
+            </Grid.Shadow>
+            
+            <VerticalStackLayout Spacing="8">
+                <!-- App Logo/Title -->
+                <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                    <Label Text="🎵" 
+                           FontSize="40"
+                           VerticalOptions="Center"/>
+                    <Label Text="Murmur" 
+                           FontSize="36" 
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource White}"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
                 
+                <!-- Tagline -->
+                <Label Text="Create your perfect sound sanctuary" 
+                       FontSize="15" 
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource White}"
+                       Opacity="0.9"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Main Content - Sound Grid -->
+        <ScrollView Grid.Row="1" Padding="16,20,16,0">
+            <VerticalStackLayout Spacing="24">
+                <!-- Section Header -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView WidthRequest="4" 
+                             HeightRequest="24"
+                             CornerRadius="2"
+                             Color="{StaticResource Accent}"
+                             VerticalOptions="Center"/>
+                    <Label Text="Available Sounds" 
+                           FontSize="22" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                
+                <!-- Sound Cards Grid -->
                 <CollectionView ItemsSource="{Binding AvailableSounds}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 
                                        Span="2" 
-                                       HorizontalItemSpacing="10" 
-                                       VerticalItemSpacing="10"/>
+                                       HorizontalItemSpacing="12" 
+                                       VerticalItemSpacing="12"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Sound">
-                            <Frame BorderColor="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
-                                   Padding="15"
-                                   CornerRadius="10"
+                            <Frame Background="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}"
+                                   BorderColor="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"
+                                   Padding="16"
+                                   CornerRadius="16"
                                    HasShadow="True">
+                                <Frame.Shadow>
+                                    <Shadow Brush="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Black}}" 
+                                            Opacity="0.15" 
+                                            Radius="12" 
+                                            Offset="0,4" />
+                                </Frame.Shadow>
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ToggleSoundCommand}"
                                                         CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
-                                <VerticalStackLayout Spacing="5">
-                                    <Label Text="{Binding Name}" 
+                                
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="8">
+                                    <!-- Icon/Category Indicator -->
+                                    <Border Grid.Row="0"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            StrokeThickness="0"
+                                            HorizontalOptions="Center"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceVariant}, Dark={StaticResource DarkSurfaceVariant}}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="🌊" 
+                                               FontSize="24"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+                                    
+                                    <!-- Sound Name -->
+                                    <Label Grid.Row="1"
+                                           Text="{Binding Name}" 
                                            FontSize="16" 
                                            FontAttributes="Bold"
-                                           HorizontalOptions="Center"/>
-                                    <Label Text="{Binding Category}" 
-                                           FontSize="12" 
-                                           TextColor="Gray"
-                                           HorizontalOptions="Center"/>
-                                    <Label Text="🔒 Premium" 
-                                           FontSize="10" 
-                                           TextColor="Orange"
-                                           IsVisible="{Binding IsPremium}"
-                                           HorizontalOptions="Center"/>
-                                </VerticalStackLayout>
+                                           TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
+                                           HorizontalOptions="Center"
+                                           HorizontalTextAlignment="Center"
+                                           LineBreakMode="TailTruncation"
+                                           MaxLines="1"/>
+                                    
+                                    <!-- Category Badge -->
+                                    <Border Grid.Row="2"
+                                            Padding="8,4"
+                                            StrokeThickness="0"
+                                            HorizontalOptions="Center"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryLight}}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="8"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding Category}" 
+                                               FontSize="11" 
+                                               TextColor="{StaticResource White}"
+                                               FontAttributes="Bold"/>
+                                    </Border>
+                                    
+                                    <!-- Premium Badge -->
+                                    <Border Grid.Row="3"
+                                            Padding="6,3"
+                                            StrokeThickness="1"
+                                            StrokeLineCap="Round"
+                                            Stroke="{StaticResource Premium}"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding IsPremium}"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurface}}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="10"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="⭐ Premium" 
+                                               FontSize="10" 
+                                               TextColor="{StaticResource Premium}"
+                                               FontAttributes="Bold"/>
+                                    </Border>
+                                </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <Label Text="Currently Playing" 
-                       FontSize="20" 
-                       FontAttributes="Bold"
-                       IsVisible="{Binding IsPlaying}"
-                       Margin="0,20,0,0"/>
-                
-                <CollectionView ItemsSource="{Binding PlayingSounds}"
-                               IsVisible="{Binding IsPlaying}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:PlayingSound">
-                            <Frame BorderColor="{AppThemeBinding Light=#90EE90, Dark=#006400}"
-                                   Padding="10"
-                                   Margin="0,5"
-                                   CornerRadius="8">
-                                <HorizontalStackLayout Spacing="10">
-                                    <Label Text="{Binding Sound.Name}" 
-                                           FontSize="14"
-                                           VerticalOptions="Center"
-                                           HorizontalOptions="StartAndExpand"/>
-                                    <Label Text="🔊" 
-                                           FontSize="16"
-                                           VerticalOptions="Center"/>
-                                </HorizontalStackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <!-- Currently Playing Section -->
+                <VerticalStackLayout Spacing="16" 
+                                    IsVisible="{Binding IsPlaying}"
+                                    Margin="0,8,0,0">
+                    <!-- Section Header -->
+                    <HorizontalStackLayout Spacing="8">
+                        <BoxView WidthRequest="4" 
+                                 HeightRequest="24"
+                                 CornerRadius="2"
+                                 Color="{StaticResource Success}"
+                                 VerticalOptions="Center"/>
+                        <Label Text="Currently Playing" 
+                               FontSize="22" 
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
+                               VerticalOptions="Center"/>
+                        <Label Text="🔊" 
+                               FontSize="20"
+                               VerticalOptions="Center"
+                               Margin="4,0,0,0"/>
+                    </HorizontalStackLayout>
+                    
+                    <!-- Playing Sounds List -->
+                    <CollectionView ItemsSource="{Binding PlayingSounds}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:PlayingSound">
+                                <Border Background="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}"
+                                        Stroke="{StaticResource Success}"
+                                        StrokeThickness="2"
+                                        Padding="16,12"
+                                        Margin="0,0,0,8">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Border.Shadow>
+                                        <Shadow Brush="{StaticResource Success}" 
+                                                Opacity="0.2" 
+                                                Radius="8" 
+                                                Offset="0,2" />
+                                    </Border.Shadow>
+                                    
+                                    <HorizontalStackLayout Spacing="12">
+                                        <!-- Sound Wave Animation Indicator -->
+                                        <Border WidthRequest="40"
+                                                HeightRequest="40"
+                                                StrokeThickness="0"
+                                                BackgroundColor="{StaticResource Success}">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="20"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="♪" 
+                                                   FontSize="20"
+                                                   TextColor="{StaticResource White}"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+                                        </Border>
+                                        
+                                        <Label Text="{Binding Sound.Name}" 
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="StartAndExpand"/>
+                                        
+                                        <Label Text="Playing" 
+                                               FontSize="12"
+                                               TextColor="{StaticResource Success}"
+                                               FontAttributes="Bold"
+                                               VerticalOptions="Center"
+                                               Opacity="0.8"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Control Panel -->
-        <VerticalStackLayout Grid.Row="2" Spacing="10" Padding="0,20,0,0">
-            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Label Text="Timer:" VerticalOptions="Center"/>
-                <Entry Text="{Binding TimerMinutes}" 
-                       Keyboard="Numeric"
-                       WidthRequest="60"
-                       HorizontalTextAlignment="Center"/>
-                <Label Text="min" VerticalOptions="Center"/>
-                <Button Text="{Binding TimerActive, Converter={StaticResource TimerButtonTextConverter}}"
-                        Command="{Binding TimerActive, Converter={StaticResource TimerCommandConverter}}"
-                        IsEnabled="{Binding IsPlaying}"/>
-            </HorizontalStackLayout>
+        <!-- Bottom Control Panel -->
+        <Border Grid.Row="2" 
+                Background="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}"
+                Stroke="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"
+                StrokeThickness="1"
+                Padding="20,16">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24,24,0,0"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Black}}" 
+                        Opacity="0.15" 
+                        Radius="16" 
+                        Offset="0,-4" />
+            </Border.Shadow>
             
-            <Button Text="Stop All"
-                    Command="{Binding StopAllCommand}"
-                    IsEnabled="{Binding IsPlaying}"
-                    BackgroundColor="Crimson"
-                    TextColor="White"/>
-        </VerticalStackLayout>
+            <VerticalStackLayout Spacing="12">
+                <!-- Timer Controls -->
+                <Border Background="{AppThemeBinding Light={StaticResource LightSurfaceVariant}, Dark={StaticResource DarkSurfaceVariant}}"
+                        StrokeThickness="0"
+                        Padding="16,12">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="12">
+                        <Label Grid.Column="0"
+                               Text="⏱️" 
+                               FontSize="20"
+                               VerticalOptions="Center"/>
+                        
+                        <HorizontalStackLayout Grid.Column="1" 
+                                              Spacing="8"
+                                              VerticalOptions="Center">
+                            <Entry Text="{Binding TimerMinutes}" 
+                                   Keyboard="Numeric"
+                                   WidthRequest="60"
+                                   HeightRequest="44"
+                                   HorizontalTextAlignment="Center"
+                                   BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurface}}"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"/>
+                            <Label Text="minutes" 
+                                   VerticalOptions="Center"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
+                        </HorizontalStackLayout>
+                        
+                        <Button Grid.Column="2"
+                                Text="Start"
+                                Command="{Binding StartTimerCommand}"
+                                IsVisible="{Binding TimerActive, Converter={StaticResource InverseBoolConverter}}"
+                                IsEnabled="{Binding IsPlaying}"
+                                BackgroundColor="{StaticResource Primary}"
+                                TextColor="{StaticResource White}"
+                                CornerRadius="10"
+                                Padding="20,8"
+                                FontSize="14"
+                                FontAttributes="Bold"/>
+                        
+                        <Button Grid.Column="2"
+                                Text="⏹ Stop Timer"
+                                Command="{Binding StopTimerCommand}"
+                                IsVisible="{Binding TimerActive}"
+                                BackgroundColor="{StaticResource Warning}"
+                                TextColor="{StaticResource White}"
+                                CornerRadius="10"
+                                Padding="16,8"
+                                FontSize="14"
+                                FontAttributes="Bold"/>
+                    </Grid>
+                </Border>
+                
+                <!-- Stop All Button -->
+                <Button Text="⏹ Stop All Sounds"
+                        Command="{Binding StopAllCommand}"
+                        IsEnabled="{Binding IsPlaying}"
+                        BackgroundColor="{StaticResource Error}"
+                        TextColor="{StaticResource White}"
+                        HeightRequest="54"
+                        CornerRadius="16"
+                        FontSize="16"
+                        FontAttributes="Bold">
+                    <Button.Shadow>
+                        <Shadow Brush="{StaticResource Error}" 
+                                Opacity="0.3" 
+                                Radius="12" 
+                                Offset="0,4" />
+                    </Button.Shadow>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{StaticResource Error}" />
+                                        <Setter Property="TextColor" Value="{StaticResource White}" />
+                                        <Setter Property="Opacity" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}" />
+                                        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}" />
+                                        <Setter Property="Opacity" Value="0.6" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+            </VerticalStackLayout>
+        </Border>
     </Grid>
 </ContentPage>

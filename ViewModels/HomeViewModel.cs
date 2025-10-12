@@ -56,6 +56,11 @@ public partial class HomeViewModel : BaseViewModel
         IsBusy = true;
         try
         {
+            // Stop any sounds that might be playing from a previous session
+            await _audioService.StopAllAsync();
+            PlayingSounds.Clear();
+            IsPlaying = false;
+
             var prefs = await _dataService.GetUserPreferencesAsync();
             IsPremium = prefs.IsPremium;
             TimerMinutes = prefs.DefaultTimerMinutes;
@@ -93,12 +98,34 @@ public partial class HomeViewModel : BaseViewModel
             }
 
             // Start the sound
-            var success = await _audioService.PlaySoundAsync(sound, 0f);
-            if (success)
+            try
             {
-                var ps = new PlayingSound { Sound = sound, Volume = 0.7f, IsPlaying = true };
-                PlayingSounds.Add(ps);
-                await _audioService.FadeInAsync(sound.Id, 0.7f, 1000);
+                var success = await _audioService.PlaySoundAsync(sound, 0f);
+                if (success)
+                {
+                    var ps = new PlayingSound { Sound = sound, Volume = 0.7f, IsPlaying = true };
+                    PlayingSounds.Add(ps);
+                    await _audioService.FadeInAsync(sound.Id, 0.7f, 1000);
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+                await Shell.Current.DisplayAlert(
+                    "Audio Files Missing", 
+                    $"The audio files haven't been added to the project yet.\n\n" +
+                    $"Missing: {sound.FileName}\n\n" +
+                    $"To fix this:\n" +
+                    $"1. Create a 'Sounds' folder in Resources/Raw/\n" +
+                    $"2. Add MP3 files: rain.mp3, ocean.mp3, forest.mp3, etc.\n" +
+                    $"3. Set 'Build Action' to 'MauiAsset' for each file\n\n" +
+                    $"See IMPLEMENTATION_SUMMARY.md for details.", 
+                    "OK");
+                return;
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Failed to play sound: {ex.Message}", "OK");
+                return;
             }
         }
 

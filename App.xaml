@@ -17,6 +17,7 @@
             <converters:PremiumStatusConverter x:Key="PremiumStatusConverter" />
             <converters:PremiumColorConverter x:Key="PremiumColorConverter" />
             <converters:AdsStatusConverter x:Key="AdsStatusConverter" />
+            <converters:TimerButtonTextConverter x:Key="TimerButtonTextConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

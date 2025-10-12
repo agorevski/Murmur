@@ -8,19 +8,36 @@ namespace Murmur.App;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+public static MauiApp CreateMauiApp()
+{
+// Add global exception handlers
+AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+{
+var ex = e.ExceptionObject as Exception;
+System.Diagnostics.Debug.WriteLine($"UNHANDLED EXCEPTION: {ex?.Message}");
+System.Diagnostics.Debug.WriteLine($"Stack trace: {ex?.StackTrace}");
+System.Diagnostics.Debug.WriteLine($"Inner exception: {ex?.InnerException?.Message}");
+};
+
+TaskScheduler.UnobservedTaskException += (s, e) =>
+{
+System.Diagnostics.Debug.WriteLine($"UNOBSERVED TASK EXCEPTION: {e.Exception.Message}");
+System.Diagnostics.Debug.WriteLine($"Stack trace: {e.Exception.StackTrace}");
+e.SetObserved();
+};
+
+var builder = MauiApp.CreateBuilder();
+builder
+.UseMauiApp<App>()
+.ConfigureFonts(fonts =>
+{
+fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+});
 
 #if DEBUG
-		builder.Logging.AddDebug();
+builder.Logging.AddDebug();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 #endif
 
 		// Register services

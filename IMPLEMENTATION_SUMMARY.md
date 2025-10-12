@@ -1,4 +1,4 @@
-# Driftly App - Implementation Summary
+# Murmur App - Implementation Summary
 
 ## ✅ What's Implemented
 
@@ -130,7 +130,7 @@
 - Android-only target
 - Proper permissions in manifest
 - Package name: com.driftly.murmur
-- App name: Driftly
+- App name: Murmur
 
 ✅ **Documentation**
 - README.md: Project overview and getting started
@@ -266,7 +266,7 @@ All dependencies checked for vulnerabilities: ✅ Clean
 
 ## 🎯 Feature Highlights
 
-**What Makes Driftly Special:**
+**What Makes Murmur Special:**
 1. **Simple & Clean**: Minimalist UI focused on relaxation
 2. **Powerful Mixing**: Combine multiple sounds seamlessly
 3. **Smart Timer**: Auto-stop for sleep/meditation

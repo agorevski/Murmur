@@ -1,0 +1,12 @@
+C:\Program Files\dotnet\sdk\10.0.100-rc.2.25502.107\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.RuntimeIdentifierInference.targets(351,5): message NETSDK1057: You are using a preview version of .NET. See: https://aka.ms/dotnet-support-policy [C:\GIT\agorevski\Murmur\Murmur.App.Tests\Murmur.App.Tests.csproj]
+C:\GIT\agorevski\Murmur\Murmur.App.Tests\Murmur.App.Tests.csproj : warning NU1603: Murmur.App.Tests depends on Microsoft.Maui.Controls (>= 9.0.101) but Microsoft.Maui.Controls 9.0.101 was not found. Microsoft.Maui.Controls 9.0.110 was resolved instead.
+C:\GIT\agorevski\Murmur\Murmur.App.Tests\ViewModels\BaseViewModelTests_Fixed.cs(8,14): error CS0101: The namespace 'Murmur.App.Tests.ViewModels' already contains a definition for 'BaseViewModelTests' [C:\GIT\agorevski\Murmur\Murmur.App.Tests\Murmur.App.Tests.csproj]
+
+Build FAILED.
+
+C:\GIT\agorevski\Murmur\Murmur.App.Tests\Murmur.App.Tests.csproj : warning NU1603: Murmur.App.Tests depends on Microsoft.Maui.Controls (>= 9.0.101) but Microsoft.Maui.Controls 9.0.101 was not found. Microsoft.Maui.Controls 9.0.110 was resolved instead.
+C:\GIT\agorevski\Murmur\Murmur.App.Tests\ViewModels\BaseViewModelTests_Fixed.cs(8,14): error CS0101: The namespace 'Murmur.App.Tests.ViewModels' already contains a definition for 'BaseViewModelTests' [C:\GIT\agorevski\Murmur\Murmur.App.Tests\Murmur.App.Tests.csproj]
+    1 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:01.90

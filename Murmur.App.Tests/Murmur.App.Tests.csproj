@@ -20,6 +20,9 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
     <PackageReference Include="Plugin.Maui.Audio" Version="3.0.1" />
+    <PackageReference Include="Appium.WebDriver" Version="5.0.0-rc.1" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.27.0" />
+    <PackageReference Include="Selenium.Support" Version="4.27.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +33,7 @@
     <Compile Include="..\Models\*.cs" Link="Models\%(Filename)%(Extension)" />
     <Compile Include="..\ViewModels\*.cs" Link="ViewModels\%(Filename)%(Extension)" />
     <Compile Include="..\Services\*.cs" Link="Services\%(Filename)%(Extension)" />
+    <Compile Include="..\Converters\*.cs" Link="Converters\%(Filename)%(Extension)" />
   </ItemGroup>
 
 </Project>

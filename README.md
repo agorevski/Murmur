@@ -81,27 +81,52 @@ The app includes a curated collection of ambient sounds:
 ### Build
 
 ```bash
-dotnet build
+dotnet build Murmur.sln
 ```
 
 ### Run on Android
 
 ```bash
-dotnet build -t:Run -f net9.0-android
-dotnet build -t:Run -f net9.0-android Murmur.App.csproj /p:AndroidSdkDirectory="C:\android-sdk" /p:JavaSdkDirectory="C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot"
+dotnet build -t:Run -f net9.0-android src/Murmur.App/Murmur.App.csproj
+dotnet build -t:Run -f net9.0-android src/Murmur.App/Murmur.App.csproj /p:AndroidSdkDirectory="C:\android-sdk" /p:JavaSdkDirectory="C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot"
+```
+
+### Run Tests
+
+```bash
+dotnet test Murmur.sln
 ```
 
 ## Project Structure
 
 ```
-Murmur.App/
-├── Models/          # Data models
-├── ViewModels/      # MVVM view models
-├── Views/           # XAML pages
-├── Services/        # Business logic services
-├── Converters/      # Value converters for XAML
-├── Resources/       # Images, fonts, sounds, styles
-└── Data/            # SQLite database
+Murmur/
+├── Murmur.sln              # Solution file
+├── README.md
+├── .gitignore
+├── docs/                   # Documentation
+│   ├── AUDIO_FILES_SETUP.md
+│   ├── EXTERNAL_SERVICES.md
+│   ├── IMPLEMENTATION_SUMMARY.md
+│   └── UX_IMPROVEMENTS.md
+├── src/                    # Source code
+│   └── Murmur.App/
+│       ├── Models/         # Data models
+│       ├── ViewModels/     # MVVM view models
+│       ├── Views/          # XAML pages
+│       ├── Services/       # Business logic services
+│       ├── Converters/     # Value converters for XAML
+│       ├── Resources/      # Images, fonts, sounds, styles
+│       ├── Platforms/      # Platform-specific code
+│       └── Properties/     # Project properties
+└── tests/                  # Test projects
+    └── Murmur.App.Tests/
+        ├── Models/
+        ├── ViewModels/
+        ├── Services/
+        ├── Converters/
+        ├── UI/
+        └── Mocks/
 ```
 
 ## Configuration

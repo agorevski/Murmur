@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
+
+    <!-- Murmur Brand Colors - Calming & Professional -->
+    <Color x:Key="Primary">#1A5F7A</Color>
+    <Color x:Key="PrimaryLight">#2A7FA0</Color>
+    <Color x:Key="PrimaryDark">#0D3D52</Color>
+    <Color x:Key="Accent">#FF8C61</Color>
+    <Color x:Key="AccentLight">#FFAB87</Color>
+    <Color x:Key="AccentDark">#E66D42</Color>
+    
+    <!-- Semantic Colors -->
+    <Color x:Key="Success">#4CAF50</Color>
+    <Color x:Key="Warning">#FF9800</Color>
+    <Color x:Key="Error">#F44336</Color>
+    <Color x:Key="Info">#2196F3</Color>
+    
+    <!-- Category Colors -->
+    <Color x:Key="Nature">#6BBF59</Color>
+    <Color x:Key="Indoor">#FF7043</Color>
+    <Color x:Key="Noise">#9C27B0</Color>
+    
+    <!-- Premium -->
+    <Color x:Key="Premium">#FFD700</Color>
+    <Color x:Key="PremiumDark">#B8860B</Color>
+
+    <!-- Base Colors -->
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
+    <Color x:Key="Transparent">Transparent</Color>
+
+    <!-- Light Theme -->
+    <Color x:Key="LightBackground">#F8FAFB</Color>
+    <Color x:Key="LightSurface">#FFFFFF</Color>
+    <Color x:Key="LightSurfaceVariant">#F0F4F7</Color>
+    <Color x:Key="LightBorder">#E0E5E9</Color>
+    <Color x:Key="LightText">#1A2332</Color>
+    <Color x:Key="LightTextSecondary">#5F6B7A</Color>
+    <Color x:Key="LightTextTertiary">#9AA5B1</Color>
+
+    <!-- Dark Theme -->
+    <Color x:Key="DarkBackground">#0F1419</Color>
+    <Color x:Key="DarkSurface">#1A2028</Color>
+    <Color x:Key="DarkSurfaceVariant">#242B35</Color>
+    <Color x:Key="DarkBorder">#2D3542</Color>
+    <Color x:Key="DarkText">#E8EAED</Color>
+    <Color x:Key="DarkTextSecondary">#B4B9C0</Color>
+    <Color x:Key="DarkTextTertiary">#757B87</Color>
+
+    <!-- Gray Scale -->
+    <Color x:Key="Gray50">#F9FAFB</Color>
+    <Color x:Key="Gray100">#E8EAED</Color>
+    <Color x:Key="Gray200">#D1D5DB</Color>
+    <Color x:Key="Gray300">#B4B9C0</Color>
+    <Color x:Key="Gray400">#9AA5B1</Color>
+    <Color x:Key="Gray500">#5F6B7A</Color>
+    <Color x:Key="Gray600">#4B5563</Color>
+    <Color x:Key="Gray700">#374151</Color>
+    <Color x:Key="Gray800">#1F2937</Color>
+    <Color x:Key="Gray900">#111827</Color>
+    <Color x:Key="Gray950">#030712</Color>
+    
+    <!-- Additional Named Colors -->
+    <Color x:Key="OffBlack">#1A1A1A</Color>
+    <Color x:Key="MidnightBlue">#2C3E50</Color>
+    <Color x:Key="Secondary">#6C757D</Color>
+    <Color x:Key="Magenta">#E91E63</Color>
+    
+    <!-- Dark Theme Text Colors -->
+    <Color x:Key="PrimaryDarkText">#E8EAED</Color>
+    <Color x:Key="SecondaryDarkText">#B4B9C0</Color>
+
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource Accent}"/>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+    
+    <!-- Gradients -->
+    <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
+        <GradientStop Color="{StaticResource PrimaryLight}" Offset="1.0" />
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="AccentGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource Accent}" Offset="0.0" />
+        <GradientStop Color="{StaticResource AccentLight}" Offset="1.0" />
+    </LinearGradientBrush>
+</ResourceDictionary>
